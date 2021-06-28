@@ -1,0 +1,4 @@
+#virtualenv stuff on mac
+bin
+lib
+pyvenv.cfg
