@@ -54,15 +54,17 @@ def waitForArduino():
         
 
 if __name__=="__main__":
-    startMarker = 60
-    endMarker = 62
+    startMarker = 60# < character
+    endMarker = 62# > character
     port="/dev/cu.usbmodem14201"
+    file = open("helloworld.txt")
+    program=file.read()
     ser = serial.Serial(port, 9600)
     waitForArduino()
-    sendToArduino("<abcdefghijklmnop>")
+    sendToArduino(f"<{program}>")
+    file.close()
     while ser.inWaiting() == 0:
         pass
-    
     dataRecvd = recvFromArduino()
-    print ("Reply Received  " + dataRecvd)
+    print ("Reply Received:\n" + dataRecvd)
     ser.close()
