@@ -4,26 +4,19 @@
 #define EEPROM_D0 5
 #define EEPROM_D7 12
 #define WRITE_EN 13
-
-char msg[100];
-int msgIdx=0;
-
-int incomingByte = 0;
-
 void setup() {
-  pinMode(SER,OUTPUT);
-  pinMode(RCLK,OUTPUT);
-  pinMode(SRCLK,OUTPUT);
-  
-  digitalWrite(WRITE_EN,HIGH);
-  pinMode(WRITE_EN,OUTPUT);
-  Serial.begin(9600);
-//  for(int i=0;i<255;i++) {
-//    writeEEPROM(i,0x69);
-//  }
-  printEEPROMContents();
-}
+    pinMode(SER,OUTPUT);
+    pinMode(RCLK,OUTPUT);
+    pinMode(SRCLK,OUTPUT);
 
+    digitalWrite(WRITE_EN,HIGH);
+    pinMode(WRITE_EN,OUTPUT);
+    Serial.begin(9600);
+//    for(int i=0;i<255;i++) {
+//    writeEEPROM(i,0x69);
+//    }
+    printEEPROMContents();
+}
 void setAddress(int address, bool outputEnable) {
   shiftOut(SER,SRCLK,MSBFIRST,(address>>8) | (outputEnable? 0:0x80));
   shiftOut(SER,SRCLK,MSBFIRST,address);
@@ -69,11 +62,4 @@ void writeEEPROM(int address, byte data) {
   delay(5);
 }
 
-void loop() {
-  if (false&&Serial.available() > 0) {
-    // read the incoming byte:
-    incomingByte = Serial.read();
-    writeEEPROM(msgIdx,incomingByte);
-    msgIdx++;
-  }
-}
+void loop(){}
